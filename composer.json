@@ -1,0 +1,20 @@
+{
+    "name": "niseredis/niseredis",
+    "type": "library",
+    "description": "A fake Redis, full of lies",
+    "keywords": ["nosql", "redis", "predis"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniele Alessandri",
+            "email": "suppakilla@gmail.com",
+            "homepage": "http://clorophilla.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+    },
+    "autoload": {
+        "psr-0": {"Niseredis": "lib/"}
+    }
+}
