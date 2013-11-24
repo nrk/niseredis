@@ -72,7 +72,7 @@ class ListKey implements KeyInterface
         }
 
         $position = $where === 'BEFORE' ? $index : $index + 1;
-        array_splice($this->list, $position, 0, $value);
+        array_splice($this->list, $position, 0, (string) $value);
 
         return $this->llen();
     }
@@ -128,9 +128,11 @@ class ListKey implements KeyInterface
      */
     public function lrem($count, $value)
     {
+        $value = (string) $value;
+
         if ($count == 0) {
             $before = $this->llen();
-            $this->list = array_diff($this->list, array((string) $value));
+            $this->list = array_diff($this->list, array($value));
 
             return $before - $this->llen();
         }
