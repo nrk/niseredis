@@ -50,6 +50,7 @@ Lists:
   - [`LRANGE`](http://redis.io/commands/lrange)
   - [`LREM`](http://redis.io/commands/lrem)
   - [`LSET`](http://redis.io/commands/lset)
+  - [`LTRIM`](http://redis.io/commands/ltrim)
   - [`RPOP`](http://redis.io/commands/rpop)
   - [`RPUSH`](http://redis.io/commands/rpush)
   - [`RPUSHX`](http://redis.io/commands/rpushx)

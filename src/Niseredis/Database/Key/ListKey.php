@@ -181,6 +181,19 @@ class ListKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/ltrim
+     */
+    public function ltrim($start, $stop)
+    {
+        $llen = $this->llen();
+
+        $offset = $start >= 0 ? $start : $llen + $start;
+        $length = $stop >= 0 ? $stop - $offset : $llen + $stop - $offset;
+
+        $this->list = array_slice($this->list, $offset, $length + 1);
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop()

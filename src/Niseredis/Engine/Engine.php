@@ -339,6 +339,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/ltrim
+     */
+    public function ltrim($key, $start, $stop)
+    {
+        if ($dbkey = $this->database->getList($key)) {
+            $dbkey->ltrim($start, $stop);
+        }
+
+        return true;
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop($key)
