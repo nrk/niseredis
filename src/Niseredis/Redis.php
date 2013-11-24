@@ -392,6 +392,14 @@ class Redis
         return $this->engine->hset($key, $field, $value);
     }
 
+    /**
+     * @link http://redis.io/commands/hsetnx
+     */
+    public function hsetnx($key, $field, $value)
+    {
+        return $this->engine->hsetnx($key, $field, $value);
+    }
+
     // Connection
 
     public function auth($password)

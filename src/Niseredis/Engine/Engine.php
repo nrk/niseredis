@@ -507,4 +507,18 @@ class Engine
     {
         return $this->database->getHash($key, true)->hset($field, $value);
     }
+
+    /**
+     * @link http://redis.io/commands/hsetnx
+     */
+    public function hsetnx($key, $field, $value)
+    {
+        $dbkey = $this->database->getHash($key, true);
+
+        if (!$exists = $dbkey->hexists($field)) {
+            $dbkey->hset($field, $value);
+        }
+
+        return (int) !$exists;
+    }
 }
