@@ -255,6 +255,11 @@ class Redis
         return $this->engine->lrem($key, $count, $value);
     }
 
+    public function lset($key, $index, $value)
+    {
+        return $this->engine->lset($key, $index, $value);
+    }
+
     public function lrange($key, $start, $stop)
     {
         return $this->engine->lrange($key, $start, $stop);

@@ -49,6 +49,7 @@ Lists:
   - [`LPUSHX`](http://redis.io/commands/lpushx)
   - [`LRANGE`](http://redis.io/commands/lrange)
   - [`LREM`](http://redis.io/commands/lrem)
+  - [`LSET`](http://redis.io/commands/lset)
   - [`RPOP`](http://redis.io/commands/rpop)
   - [`RPUSH`](http://redis.io/commands/rpush)
   - [`RPUSHX`](http://redis.io/commands/rpushx)

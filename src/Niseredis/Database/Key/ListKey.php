@@ -12,6 +12,7 @@
 namespace Niseredis\Database\Key;
 
 use InvalidArgumentException;
+use OutOfRangeException;
 
 class ListKey implements KeyInterface
 {
@@ -159,6 +160,24 @@ class ListKey implements KeyInterface
         $removed = $remove - $left;
 
         return $removed;
+    }
+
+    /**
+     * @link http://redis.io/commands/lset
+     */
+    public function lset($index, $value)
+    {
+        $llen = $this->llen();
+
+        if ($index < 0) {
+            $index = $llen + $index;
+        }
+
+        if ($index < 0 || $index >= $llen) {
+            throw new OutOfRangeException("index out of range");
+        }
+
+        $this->list[$index] = (string) $value;
     }
 
     /**

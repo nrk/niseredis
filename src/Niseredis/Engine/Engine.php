@@ -325,6 +325,20 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/lset
+     */
+    public function lset($key, $index, $value)
+    {
+        if (!$dbkey = $this->database->getList($key)) {
+            throw new InvalidArgumentException("no such key");
+        }
+
+        $dbkey->lset($index, $value);
+
+        return true;
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop($key)
