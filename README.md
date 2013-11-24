@@ -72,6 +72,7 @@ Hashes:
   - [`HKEYS`](http://redis.io/commands/hkeys)
   - [`HLEN`](http://redis.io/commands/hlen)
   - [`HMGET`](http://redis.io/commands/hmget)
+  - [`HMSET`](http://redis.io/commands/hmset)
   - [`HSET`](http://redis.io/commands/hset)
 
 Connection:

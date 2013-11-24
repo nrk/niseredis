@@ -489,6 +489,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hmset
+     */
+    public function hmset($key, array $dictionary)
+    {
+        $dbkey = $this->database->getHash($key, true);
+
+        foreach ($dictionary as $field => $value) {
+            $dbkey->hset($field, $value);
+        }
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)

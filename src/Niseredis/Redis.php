@@ -361,6 +361,30 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/hmset
+     */
+    public function hmset(/* $key, $field, $value [, $field, $value, ...]*/)
+    {
+        $argv = func_get_args();
+        $key = array_shift($argv);
+        $count = count($argv);
+
+        if ($count % 2 !== 0) {
+            throw new InvalidArgumentException("wrong number of arguments for hmset command");
+        }
+
+        $arguments = array();
+
+        for ($i = 0; $i < $count; $i++) {
+            $arguments[$argv[$i]] = $argv[++$i];
+        }
+
+        $this->engine->hmset($key, $arguments);
+
+        return true;
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)
