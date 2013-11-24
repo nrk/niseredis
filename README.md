@@ -46,9 +46,11 @@ Lists:
   - [`LLEN`](http://redis.io/commands/llen)
   - [`LPOP`](http://redis.io/commands/lpop)
   - [`LPUSH`](http://redis.io/commands/lpush)
+  - [`LPUSHX`](http://redis.io/commands/lpushx)
   - [`LRANGE`](http://redis.io/commands/lrange)
   - [`RPOP`](http://redis.io/commands/rpop)
   - [`RPUSH`](http://redis.io/commands/rpush)
+  - [`RPUSHX`](http://redis.io/commands/rpushx)
 
 Sets:
 

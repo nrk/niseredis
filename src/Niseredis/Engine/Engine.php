@@ -298,6 +298,21 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/lpushx
+     */
+    public function lpushx($key, $value)
+    {
+        if ($dbkey = $this->database->getList($key)) {
+            $dbkey->lpush(array($value));
+            $length = $dbkey->llen();
+
+            return $length;
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop($key)
@@ -318,6 +333,21 @@ class Engine
         $length = $dbkey->llen();
 
         return $length;
+    }
+
+    /**
+     * @link http://redis.io/commands/rpushx
+     */
+    public function rpushx($key, $value)
+    {
+        if ($dbkey = $this->database->getList($key)) {
+            $dbkey->rpush(array($value));
+            $length = $dbkey->llen();
+
+            return $length;
+        }
+
+        return 0;
     }
 
     /**

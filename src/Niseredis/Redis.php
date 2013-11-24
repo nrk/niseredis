@@ -245,6 +245,11 @@ class Redis
         return $llen;
     }
 
+    public function lpushx($key, $value)
+    {
+        return $this->engine->lpushx($key, $value);
+    }
+
     public function lrange($key, $start, $stop)
     {
         return $this->engine->lrange($key, $start, $stop);
@@ -261,6 +266,11 @@ class Redis
         $llen = $this->engine->rpush(array_shift($arguments), $arguments);
 
         return $llen;
+    }
+
+    public function rpushx($key, $value)
+    {
+        return $this->engine->rpushx($key, $value);
     }
 
 
