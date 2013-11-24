@@ -334,6 +334,22 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/hincrby
+     */
+    public function hincrby($key, $field, $increment)
+    {
+        return $this->engine->hincrby($key, $field, $increment);
+    }
+
+    /**
+     * @link http://redis.io/commands/hincrbyfloat
+     */
+    public function hincrbyfloat($key, $field, $increment)
+    {
+        return $this->engine->hincrbyfloat($key, $field, $increment);
+    }
+
+    /**
      * @link http://redis.io/commands/hkeys
      */
     public function hkeys($key)

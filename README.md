@@ -69,6 +69,8 @@ Hashes:
   - [`HEXISTS`](http://redis.io/commands/hexists)
   - [`HGET`](http://redis.io/commands/hget)
   - [`HGETALL`](http://redis.io/commands/hgetall)
+  - [`HINCRBY`](http://redis.io/commands/hincrby)
+  - [`HINCRBYFLOAT`](http://redis.io/commands/hincrbyfloat)
   - [`HKEYS`](http://redis.io/commands/hkeys)
   - [`HLEN`](http://redis.io/commands/hlen)
   - [`HMGET`](http://redis.io/commands/hmget)

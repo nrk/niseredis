@@ -447,6 +447,22 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hincrby
+     */
+    public function hincrby($key, $field, $increment)
+    {
+        return $this->database->getHash($key, true)->hincrby($field, $increment);
+    }
+
+    /**
+     * @link http://redis.io/commands/hincrbyfloat
+     */
+    public function hincrbyfloat($key, $field, $increment)
+    {
+        return $this->database->getHash($key, true)->hincrbyfloat($field, $increment);
+    }
+
+    /**
      * @link http://redis.io/commands/hkeys
      */
     public function hkeys($key)

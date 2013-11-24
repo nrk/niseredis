@@ -11,6 +11,8 @@
 
 namespace Niseredis\Database\Key;
 
+use UnexpectedValueException;
+
 class HashKey implements KeyInterface
 {
     protected $dictionary;
@@ -76,6 +78,45 @@ class HashKey implements KeyInterface
     public function hgetall()
     {
         return $this->dictionary;
+    }
+
+    /**
+     * @link http://redis.io/commands/hincrby
+     */
+    public function hincrby($field, $increment)
+    {
+        if ("$increment" != (int) $increment) {
+            throw new UnexpectedValueException("value is not an integer or out of range");
+        }
+
+        $value = $this->hget($field) ?: 0;
+
+        if (!is_numeric($value) ||
+            stripos($value, '.') !== false ||
+            stripos($value, 'e') !== false
+        ) {
+            throw new UnexpectedValueException("value is not an integer or out of range");
+        }
+
+        $this->hset($field, (string) $value += $increment);
+
+        return (string) $value;
+    }
+
+    /**
+     * @link http://redis.io/commands/hincrbyfloat
+     */
+    public function hincrbyfloat($field, $increment)
+    {
+        $value = $this->hget($field) ?: 0;
+
+        if ("$increment" != (float) $increment || !is_numeric($value)) {
+            throw new UnexpectedValueException("value is not an integer or out of range");
+        }
+
+        $this->hset($field, (string) $value += $increment);
+
+        return (string) $value;
     }
 
     /**
