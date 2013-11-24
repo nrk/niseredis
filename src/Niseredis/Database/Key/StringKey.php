@@ -102,13 +102,22 @@ class StringKey implements KeyInterface
      */
     public function incrby($increment)
     {
-        if ("$increment" != (int) $increment || $this->value != (int) $this->value) {
+        if ("$increment" != (int) $increment) {
             throw new UnexpectedValueException("value is not an integer or out of range");
         }
 
-        $this->value += $increment;
+        $value = $this->value ?: 0;
 
-        return (string) $this->value;
+        if (!is_numeric($value) ||
+            stripos($value, '.') !== false ||
+            stripos($value, 'e') !== false
+        ) {
+            throw new UnexpectedValueException("value is not an integer or out of range");
+        }
+
+        $this->value = $value += $increment;
+
+        return (string) $value;
     }
 
     /**
