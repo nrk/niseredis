@@ -311,6 +311,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/hexists
+     */
+    public function hexists($key, $field)
+    {
+        return $this->engine->hexists($key, $field);
+    }
+
+    /**
      * @link http://redis.io/commands/hgetall
      */
     public function hgetall($key)

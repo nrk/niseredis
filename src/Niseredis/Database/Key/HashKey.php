@@ -53,6 +53,14 @@ class HashKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/hexists
+     */
+    public function hexists($field)
+    {
+        return (int) isset($this->dictionary[$field]);
+    }
+
+    /**
      * @link http://redis.io/commands/hget
      */
     public function hget($field)

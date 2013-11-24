@@ -413,6 +413,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hexists
+     */
+    public function hexists($key, $field)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hexists($field);
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/hget
      */
     public function hget($key, $field)
