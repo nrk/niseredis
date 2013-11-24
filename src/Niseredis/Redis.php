@@ -292,6 +292,17 @@ class Redis
     // Hash
 
     /**
+     * @link http://redis.io/commands/hdel
+     */
+    public function hdel(/* $key, $field [, $field, ... ] */)
+    {
+        $arguments = func_get_args();
+        $deleted = $this->engine->hdel(array_shift($arguments), $arguments);
+
+        return $deleted;
+    }
+
+    /**
      * @link http://redis.io/commands/hget
      */
     public function hget($key, $field)

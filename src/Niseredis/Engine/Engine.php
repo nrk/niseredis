@@ -401,6 +401,18 @@ class Engine
     // Hashes
 
     /**
+     * @link http://redis.io/commands/hdel
+     */
+    public function hdel($key, array $fields)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hdel($fields);
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/hget
      */
     public function hget($key, $field)

@@ -36,6 +36,23 @@ class HashKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/hdel
+     */
+    public function hdel(array $fields)
+    {
+        $deleted = 0;
+
+        foreach ($fields as $field) {
+            if (isset($this->dictionary[$field])) {
+                unset($this->dictionary[$field]);
+                $deleted++;
+            }
+        }
+
+        return $deleted;
+    }
+
+    /**
      * @link http://redis.io/commands/hget
      */
     public function hget($field)

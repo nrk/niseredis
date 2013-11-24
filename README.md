@@ -65,6 +65,7 @@ Sorted sets:
 
 Hashes:
 
+  - [`HDEL`](http://redis.io/commands/hdel)
   - [`HGET`](http://redis.io/commands/hget)
   - [`HGETALL`](http://redis.io/commands/hgetall)
   - [`HSET`](http://redis.io/commands/hset)
