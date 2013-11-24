@@ -56,12 +56,22 @@ class Redis
         return (int) $this->engine->getDatabase()->exists($key);
     }
 
+    public function expire($key, $seconds)
+    {
+        return (int) $this->engine->getDatabase()->expireat($key, microtime(true) + $seconds);
+    }
+
     public function move($key, $dbindex)
     {
         $database = $this->getDatabaseByIndex($dbindex);
         $result = $this->engine->getDatabase()->move($key, $database);
 
         return (int) $result;
+    }
+
+    public function persist($key)
+    {
+        return (int) $this->engine->getDatabase()->persist($key);
     }
 
     public function keys($pattern)
@@ -92,6 +102,11 @@ class Redis
         $database->rename($key, $newkey);
 
         return 1;
+    }
+
+    public function ttl($key)
+    {
+        return round($this->engine->getDatabase()->ttl($key));
     }
 
     public function type($key)

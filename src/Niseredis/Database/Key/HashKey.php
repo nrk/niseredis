@@ -16,6 +16,7 @@ use UnexpectedValueException;
 class HashKey implements KeyInterface
 {
     protected $dictionary;
+    protected $expiration = null;
 
     public function __construct()
     {
@@ -30,6 +31,25 @@ class HashKey implements KeyInterface
     public function getValue()
     {
         return $this->dictionary;
+    }
+
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+
+    public function setExpiration($time)
+    {
+        $this->expiration = $time;
+    }
+
+    public function isExpired()
+    {
+        if (!isset($this->expiration)) {
+            return false;
+        }
+
+        return $this->expiration - microtime(true) <= 0;
     }
 
     public function isEmpty()

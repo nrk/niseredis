@@ -17,6 +17,7 @@ use UnexpectedValueException;
 class StringKey implements KeyInterface
 {
     protected $value;
+    protected $expiration = null;
 
     public function __construct($value = '')
     {
@@ -33,9 +34,28 @@ class StringKey implements KeyInterface
         return (string) $this->value;
     }
 
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+
+    public function setExpiration($time)
+    {
+        $this->expiration = $time;
+    }
+
+    public function isExpired()
+    {
+        if (!isset($this->expiration)) {
+            return false;
+        }
+
+        return $this->expiration - microtime(true) <= 0;
+    }
+
     public function isEmpty()
     {
-        return strlen($this->value) === 0;
+        return false;
     }
 
     /**

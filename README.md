@@ -10,11 +10,14 @@ Key space:
 
   - [`DEL`](http://redis.io/commands/del)
   - [`EXISTS`](http://redis.io/commands/exists)
+  - [`EXPIRE`](http://redis.io/commands/expire)
   - [`KEYS`](http://redis.io/commands/keys)
   - [`MOVE`](http://redis.io/commands/move)
+  - [`PERSIST`](http://redis.io/commands/persist)
   - [`RANDOMKEY`](http://redis.io/commands/random)
   - [`RENAME`](http://redis.io/commands/rename)
   - [`RENAMENX`](http://redis.io/commands/renamenx)
+  - [`TTL`](http://redis.io/commands/ttl)
   - [`TYPE`](http://redis.io/commands/type)
 
 Strings:

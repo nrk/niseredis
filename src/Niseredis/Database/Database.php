@@ -60,6 +60,10 @@ class Database implements Countable
         if (isset($this->keyspace[$key])) {
             $dbkey = $this->keyspace[$key];
 
+            if ($this->gcKey($key, $dbkey)) {
+                return null;
+            }
+
             if ($type) {
                 $this->assertType($dbkey, $type);
             }
@@ -77,6 +81,28 @@ class Database implements Countable
         }
 
         return false;
+    }
+
+    protected function gcKey($key, $object = null)
+    {
+        if (!$object) {
+            $object = $this->keyspace[$key];
+        }
+
+        if ($object->isEmpty() || $object->isExpired()) {
+            unset($this->keyspace[$key]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function gc()
+    {
+        foreach ($this->keyspace as $key => $object) {
+            $this->gcKey($key, $object);
+        }
     }
 
     public function createString($key, $value = null)
@@ -164,7 +190,42 @@ class Database implements Countable
 
     public function exists($key)
     {
-        return isset($this->keyspace[$key]);
+        return isset($this->keyspace[$key]) && !$this->gcKey($key);
+    }
+
+    public function expireat($key, $time)
+    {
+        if ($object = $this->getKey($key)) {
+            $object->setExpiration($time);
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public function ttl($key)
+    {
+        if ($object = $this->getKey($key)) {
+            if (null === $time = $object->getExpiration()) {
+                return -1;
+            }
+
+            return abs(microtime(true) - $time);
+        }
+
+        return -2;
+    }
+
+    public function persist($key)
+    {
+        if (($object = $this->getKey($key)) && null !== $object->getExpiration()) {
+            $object->setExpiration(null);
+
+            return 1;
+        }
+
+        return 0;
     }
 
     public function move($key, Database $database)
@@ -193,7 +254,13 @@ class Database implements Countable
 
     public function random()
     {
-        return $this->keyspace->getRandomKey();
+        while (count($this->keyspace)) {
+            list($key, $object) = $this->keyspace->getRandom();
+
+            if (!$this->gcKey($key, $object)) {
+                return $key;
+            }
+        }
     }
 
     public function type($key)
@@ -207,11 +274,106 @@ class Database implements Countable
 
     public function keys($pattern)
     {
-        return $this->keyspace->keys($pattern);
+        $matches = array();
+        $pattern = self::convertGlobToRegex($pattern);
+
+        foreach ($this->keyspace as $key => $object) {
+            if (preg_match("/$pattern/", $key) && !$this->gcKey($key, $object)) {
+                $matches[] = $key;
+            }
+        }
+
+        return $matches;
     }
 
     public function flush()
     {
         $this->keyspace->reset();
+    }
+
+    /**
+     * @link http://stackoverflow.com/a/17369948
+     */
+    protected static function convertGlobToRegex($pattern)
+    {
+        $pattern = trim($pattern, " \t\n\r\0\x0B*");
+        $length = strlen($pattern);
+
+        $escaping = false;
+        $curlies = 0;
+        $regex = '';
+
+        for ($c = 0; $c < $length; $c++) {
+            switch ($char = $pattern[$c]) {
+                case '*':
+                    $regex .= $escaping ? '\\*' : '.*';
+                    $ecaping = false;
+                    break;
+
+                case '?':
+                    $regex .= $escaping ? '\\?' : '.';
+                    $ecaping = false;
+                    break;
+
+                case '.':
+                case '(':
+                case ')':
+                case '+':
+                case '|':
+                case '^':
+                case '$':
+                case '@':
+                case '%':
+                    $regex .= "\\$char";
+                    $escaping = false;
+                    break;
+
+                case '\\':
+                    if ($escaping) {
+                        $regex .= '\\\\';
+                    }
+                    $escaping = !$escaping;
+                    break;
+
+                case '{':
+                    if (escaping) {
+                        $regex .= '\\{';
+                    } else {
+                        $regex .= '(';
+                        $curlies++;
+                    }
+                    $escaping = false;
+                    break;
+
+                case '}':
+                    if ($curlies && !escaping) {
+                        $regex .= ')';
+                        $curlies--;
+                    } else if ($escaping) {
+                        $regex .= '\\}';
+                    } else {
+                        $regex .= '}';
+                    }
+                    $escaping = false;
+                    break;
+
+                case ',':
+                    if ($curlies && !escaping) {
+                        $regex .= '|';
+                    } else if ($escaping) {
+                        $regex .= '\\,';
+                    } else {
+                        $regex .= ',';
+                    }
+                    break;
+
+                default:
+                    $escaping = false;
+                    $regex .= $char;
+                    break;
+            }
+        }
+
+        return $regex;
     }
 }

@@ -17,5 +17,11 @@ interface KeyInterface
 
     public function getValue();
 
+    public function getExpiration();
+
+    public function setExpiration($time);
+
+    public function isExpired();
+
     public function isEmpty();
 }

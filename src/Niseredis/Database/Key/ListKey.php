@@ -17,6 +17,7 @@ use OutOfRangeException;
 class ListKey implements KeyInterface
 {
     protected $list;
+    protected $expiration = null;
 
     public function __construct()
     {
@@ -31,6 +32,25 @@ class ListKey implements KeyInterface
     public function getValue()
     {
         return $this->list;
+    }
+
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+
+    public function setExpiration($time)
+    {
+        $this->expiration = $time;
+    }
+
+    public function isExpired()
+    {
+        if (!isset($this->expiration)) {
+            return false;
+        }
+
+        return $this->expiration - microtime(true) <= 0;
     }
 
     public function isEmpty()
