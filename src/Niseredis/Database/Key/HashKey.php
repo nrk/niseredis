@@ -87,6 +87,14 @@ class HashKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/hlen
+     */
+    public function hlen()
+    {
+        return count($this->dictionary);
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($field, $value)

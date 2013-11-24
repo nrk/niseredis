@@ -459,6 +459,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hlen
+     */
+    public function hlen($key)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hlen();
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)
