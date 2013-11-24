@@ -73,6 +73,7 @@ Server:
   - [`DBSIZE`](http://redis.io/commands/dbsize)
   - [`FLUSHALL`](http://redis.io/commands/flushall)
   - [`FLUSHDB`](http://redis.io/commands/flushdb)
+  - [`INFO`](http://redis.io/commands/info)
   - [`TIME`](http://redis.io/commands/time)
 
 

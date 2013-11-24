@@ -315,6 +315,43 @@ class Redis
         return true;
     }
 
+    public function info($section = null)
+    {
+        $info = array(
+            'Server' => array(
+                'redis_version'  => '2.8.0',
+                'redis_git_sha1' => '4e6d34bd',
+                'redis_git_dirty'=> '0',
+                'redis_build_id' => 'd86011f0d21b246',
+                'redis_mode'     => 'standalone',
+                'tcp_port'       => '6379',
+            ),
+            'Keyspace' => array(),
+        );
+
+        foreach ($this->databases as $index => $database) {
+            if ($keys = count($database)) {
+                $info['Keyspace']["db$index"] = "keys=$keys,expires=0,avg_ttl=0";
+            }
+        }
+
+        $buffer = '';
+
+        foreach ($info as $sectionKey => $sectionData) {
+            if ($section && strcasecmp($sectionKey, $section)) {
+                continue;
+            }
+
+            $buffer .= "# $sectionKey\n";
+            foreach ($sectionData as $k => $v) {
+                $buffer .= "$k:$v\n";
+            }
+            $buffer .= "\n";
+        }
+
+        return $buffer;
+    }
+
     public function time()
     {
         $microtime = explode(" ", microtime());
