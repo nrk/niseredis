@@ -250,6 +250,11 @@ class Redis
         return $this->engine->lpushx($key, $value);
     }
 
+    public function lrem($key, $count, $value)
+    {
+        return $this->engine->lrem($key, $count, $value);
+    }
+
     public function lrange($key, $start, $stop)
     {
         return $this->engine->lrange($key, $start, $stop);

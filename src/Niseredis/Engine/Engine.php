@@ -313,6 +313,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/lrem
+     */
+    public function lrem($key, $count, $value)
+    {
+        if ($dbkey = $this->database->getList($key)) {
+            return $dbkey->lrem($count, $value);
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop($key)

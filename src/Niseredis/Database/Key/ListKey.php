@@ -123,6 +123,45 @@ class ListKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/lrem
+     */
+    public function lrem($count, $value)
+    {
+        if ($count == 0) {
+            $before = $this->llen();
+            $this->list = array_diff($this->list, array((string) $value));
+
+            return $before - $this->llen();
+        }
+
+        $left = $remove = abs($count);
+        $last = $this->llen() - 1;
+        $index = $count > 0 ? 0 : $last;
+
+        while (0 < $left) {
+            if ($value === $this->list[$index]) {
+                unset($this->list[$index]);
+                $left--;
+            }
+
+            $count > 0 ? $index++ : $index--;
+
+            if ($index < 0 || $index > $last) {
+                break;
+            }
+        }
+
+        if ($left === $remove) {
+            return 0;
+        }
+
+        $this->list = array_values($this->list);
+        $removed = $remove - $left;
+
+        return $removed;
+    }
+
+    /**
      * @link http://redis.io/commands/rpop
      */
     public function rpop()
