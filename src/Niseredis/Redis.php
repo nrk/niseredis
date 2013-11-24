@@ -350,6 +350,17 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/hmget
+     */
+    public function hmget(/* $key, $field [, $field ...]*/)
+    {
+        $arguments = func_get_args();
+        $values = $this->engine->hmget(array_shift($arguments), $arguments);
+
+        return $values;
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)

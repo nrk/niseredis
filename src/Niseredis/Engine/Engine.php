@@ -471,6 +471,24 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hmget
+     */
+    public function hmget($key, array $fields)
+    {
+        $values = array();
+
+        if ($dbkey = $this->database->getHash($key)) {
+            foreach ($fields as $field) {
+                $values[] = $dbkey->hget($field);
+            }
+        } else {
+            $values = array_fill(0, count($fields), null);
+        }
+
+        return $values;
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)
