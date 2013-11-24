@@ -169,6 +169,10 @@ class Database implements Countable
 
     public function move($key, Database $database)
     {
+        if ($this === $database) {
+            throw new RuntimeException("source and destination objects are the same");
+        }
+
         if ($object = $this->getKey($key)) {
             $this->delKey($key);
             $database->setKey($key, $object);
