@@ -79,6 +79,14 @@ class HashKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/hkeys
+     */
+    public function hkeys()
+    {
+        return array_keys($this->dictionary);
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($field, $value)

@@ -447,6 +447,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/hkeys
+     */
+    public function hkeys($key)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hkeys();
+        }
+
+        return array();
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)

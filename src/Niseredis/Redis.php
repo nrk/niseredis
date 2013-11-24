@@ -334,6 +334,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/hkeys
+     */
+    public function hkeys($key)
+    {
+        return $this->engine->hkeys($key);
+    }
+
+    /**
      * @link http://redis.io/commands/hset
      */
     public function hset($key, $field, $value)

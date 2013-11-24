@@ -69,6 +69,7 @@ Hashes:
   - [`HEXISTS`](http://redis.io/commands/hexists)
   - [`HGET`](http://redis.io/commands/hget)
   - [`HGETALL`](http://redis.io/commands/hgetall)
+  - [`HKEYS`](http://redis.io/commands/hkeys)
   - [`HSET`](http://redis.io/commands/hset)
 
 Connection:
