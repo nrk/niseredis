@@ -397,4 +397,36 @@ class Engine
             return $dbkey->lrange($start, $stop);
         }
     }
+
+    // Hashes
+
+    /**
+     * @link http://redis.io/commands/hget
+     */
+    public function hget($key, $field)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hget($field);
+        }
+    }
+
+    /**
+     * @link http://redis.io/commands/hgetall
+     */
+    public function hgetall($key)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hgetall();
+        }
+
+        return array();
+    }
+
+    /**
+     * @link http://redis.io/commands/hset
+     */
+    public function hset($key, $field, $value)
+    {
+        return $this->database->getHash($key, true)->hset($field, $value);
+    }
 }

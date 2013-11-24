@@ -65,7 +65,9 @@ Sorted sets:
 
 Hashes:
 
-  - None
+  - [`HGET`](http://redis.io/commands/hget)
+  - [`HGETALL`](http://redis.io/commands/hgetall)
+  - [`HSET`](http://redis.io/commands/hset)
 
 Connection:
 

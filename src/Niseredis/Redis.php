@@ -289,6 +289,39 @@ class Redis
     }
 
 
+    // Hash
+
+    /**
+     * @link http://redis.io/commands/hget
+     */
+    public function hget($key, $field)
+    {
+        return $this->engine->hget($key, $field);
+    }
+
+    /**
+     * @link http://redis.io/commands/hgetall
+     */
+    public function hgetall($key)
+    {
+        $response = array();
+
+        foreach ($this->engine->hgetall($key) as $key => $value) {
+            $response[] = $key;
+            $response[] = $value;
+        }
+
+        return $response;
+    }
+
+    /**
+     * @link http://redis.io/commands/hset
+     */
+    public function hset($key, $field, $value)
+    {
+        return $this->engine->hset($key, $field, $value);
+    }
+
     // Connection
 
     public function auth($password)

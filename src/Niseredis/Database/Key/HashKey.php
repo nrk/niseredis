@@ -34,4 +34,33 @@ class HashKey implements KeyInterface
     {
         return empty($this->dictionary);
     }
+
+    /**
+     * @link http://redis.io/commands/hget
+     */
+    public function hget($field)
+    {
+        if (isset($this->dictionary[$field])) {
+            return $this->dictionary[$field];
+        }
+    }
+
+    /**
+     * @link http://redis.io/commands/hgetall
+     */
+    public function hgetall()
+    {
+        return $this->dictionary;
+    }
+
+    /**
+     * @link http://redis.io/commands/hset
+     */
+    public function hset($field, $value)
+    {
+        $created = isset($this->dictionary[$field]);
+        $this->dictionary[$field] = (string) $value;
+
+        return (int) $created;
+    }
 }
