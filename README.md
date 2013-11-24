@@ -75,6 +75,7 @@ Hashes:
   - [`HMSET`](http://redis.io/commands/hmset)
   - [`HSET`](http://redis.io/commands/hset)
   - [`HSETNX`](http://redis.io/commands/hsetnx)
+  - [`HVALS`](http://redis.io/commands/hvals)
 
 Connection:
 

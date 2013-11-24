@@ -521,4 +521,16 @@ class Engine
 
         return (int) !$exists;
     }
+
+    /**
+     * @link http://redis.io/commands/hvals
+     */
+    public function hvals($key)
+    {
+        if ($dbkey = $this->database->getHash($key)) {
+            return $dbkey->hvals();
+        }
+
+        return array();
+    }
 }

@@ -104,4 +104,12 @@ class HashKey implements KeyInterface
 
         return (int) $created;
     }
+
+    /**
+     * @link http://redis.io/commands/hvals
+     */
+    public function hvals()
+    {
+        return array_values($this->dictionary);
+    }
 }

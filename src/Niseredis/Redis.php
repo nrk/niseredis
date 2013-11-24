@@ -400,6 +400,14 @@ class Redis
         return $this->engine->hsetnx($key, $field, $value);
     }
 
+    /**
+     * @link http://redis.io/commands/hvals
+     */
+    public function hvals($key)
+    {
+        return $this->engine->hvals($key);
+    }
+
     // Connection
 
     public function auth($password)
