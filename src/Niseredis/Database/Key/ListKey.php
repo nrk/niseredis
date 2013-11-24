@@ -11,6 +11,8 @@
 
 namespace Niseredis\Database\Key;
 
+use InvalidArgumentException;
+
 class ListKey implements KeyInterface
 {
     protected $list;
@@ -51,6 +53,27 @@ class ListKey implements KeyInterface
         }
 
         return null;
+    }
+
+    /**
+     * @link http://redis.io/commands/linsert
+     */
+    public function linsert($where, $pivot, $value)
+    {
+        $where = strtoupper($where);
+
+        if ($where !== 'BEFORE' && $where !== 'AFTER') {
+            throw new InvalidArgumentException("syntax error");
+        }
+
+        if (false === $index = array_search($pivot, $this->list, true)) {
+            return -1;
+        }
+
+        $position = $where === 'BEFORE' ? $index : $index + 1;
+        array_splice($this->list, $position, 0, $value);
+
+        return $this->llen();
     }
 
     /**

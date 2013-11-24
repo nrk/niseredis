@@ -42,6 +42,7 @@ Strings:
 Lists:
 
   - [`LINDEX`](http://redis.io/commands/lindex)
+  - [`LINSERT`](http://redis.io/commands/linsert)
   - [`LLEN`](http://redis.io/commands/llen)
   - [`LPOP`](http://redis.io/commands/lpop)
   - [`LPUSH`](http://redis.io/commands/lpush)

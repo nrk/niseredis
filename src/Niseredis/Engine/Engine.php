@@ -251,6 +251,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/linsert
+     */
+    public function linsert($key, $where, $pivot, $value)
+    {
+        if ($dbkey = $this->database->getList($key)) {
+            return $dbkey->linsert($where, $pivot, $value);
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/llen
      */
     public function llen($key)

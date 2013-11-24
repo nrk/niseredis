@@ -222,6 +222,11 @@ class Redis
         return $this->engine->lindex($key, $index);
     }
 
+    public function linsert($key, $where, $pivot, $value)
+    {
+        return $this->engine->linsert($key, $where, $pivot, $value);
+    }
+
     public function llen($key)
     {
         return $this->engine->llen($key);
