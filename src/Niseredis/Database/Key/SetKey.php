@@ -55,6 +55,17 @@ class SetKey implements KeyInterface
         return empty($this->members);
     }
 
+    protected function math($fn, $others)
+    {
+        if (!$others) {
+            return $this->smembers();
+        }
+
+        return call_user_func_array($fn, array_map(function ($dbkey) {
+            return $dbkey ? $dbkey->smembers() : array();
+        }, array_merge(array($this), $others)));
+    }
+
     /**
      * @link http://redis.io/commands/sadd
      */
@@ -80,6 +91,22 @@ class SetKey implements KeyInterface
     public function scard()
     {
         return count($this->members);
+    }
+
+    /**
+     * @link http://redis.io/commands/sdiff
+     */
+    public function sdiff(array $others)
+    {
+        return array_values($this->math('array_diff', $others));
+    }
+
+    /**
+     * @link http://redis.io/commands/sinter
+     */
+    public function sinter(array $others)
+    {
+        return array_values($this->math('array_intersect', $others));
     }
 
     /**
@@ -149,5 +176,13 @@ class SetKey implements KeyInterface
         }
 
         return $removed;
+    }
+
+    /**
+     * @link http://redis.io/commands/sunion
+     */
+    public function sunion(array $others)
+    {
+        return array_values(array_unique($this->math('array_merge', $others)));
     }
 }

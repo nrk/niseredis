@@ -424,23 +424,21 @@ class Engine
         return 0;
     }
 
-    protected function getMembersOfSetKeys(array $keys)
+    protected function doSetMath(array $keys, $operation, $destination = null)
     {
-        $database = $this->database;
-        $retrieve = function ($key) use ($database) {
-            return $database->getSet($key, true)->smembers();
-        };
+        $dbkeys = $this->database->getKeys($keys, 'set');
 
-        return array_map($retrieve, $keys);
-    }
+        if ($dbkey = array_shift($dbkeys)) {
+            $result = $dbkey->$operation($dbkeys);
 
-    protected function storeSetOperation($method, $destination, array $keys)
-    {
-        if ($members = $this->$method($keys)) {
-            return $this->database->getSet($destination, true)->sadd($members);
+            if ($destination === null) {
+                return $result;
+            } else {
+                return $result ? $this->database->getSet($destination, true)->sadd($result) : 0;
+            }
         }
 
-        return 0;
+        return $destination === null ? array() : 0;
     }
 
     /**
@@ -448,9 +446,7 @@ class Engine
      */
     public function sdiff(array $keys)
     {
-        $result = call_user_func_array('array_diff', $this->getMembersOfSetKeys($keys));
-
-        return array_values($result);
+        return $this->doSetMath($keys, 'sdiff');
     }
 
     /**
@@ -458,7 +454,7 @@ class Engine
      */
     public function sdiffstore($destination, array $keys)
     {
-        return $this->storeSetOperation('sdiff', $destination, $keys);
+        return $this->doSetMath($keys, 'sdiff', $destination);
     }
 
     /**
@@ -466,9 +462,7 @@ class Engine
      */
     public function sinter(array $keys)
     {
-        $result = call_user_func_array('array_intersect', $this->getMembersOfSetKeys($keys));
-
-        return array_values($result);
+        return $this->doSetMath($keys, 'sinter');
     }
 
     /**
@@ -476,7 +470,7 @@ class Engine
      */
     public function sinterstore($destination, array $keys)
     {
-        return $this->storeSetOperation('sinter', $destination, $keys);
+        return $this->doSetMath($keys, 'sinter', $destination);
     }
 
     /**
@@ -563,9 +557,7 @@ class Engine
      */
     public function sunion(array $keys)
     {
-        $result = call_user_func_array('array_merge', $this->getMembersOfSetKeys($keys));
-
-        return array_unique($result);
+        return $this->doSetMath($keys, 'sunion');
     }
 
     /**
@@ -573,7 +565,7 @@ class Engine
      */
     public function sunionstore($destination, array $keys)
     {
-        return $this->storeSetOperation('sunion', $destination, $keys);
+        return $this->doSetMath($keys, 'sunion', $destination);
     }
 
     // Hashes

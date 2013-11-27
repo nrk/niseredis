@@ -72,6 +72,17 @@ class Database implements Countable
         }
     }
 
+    public function getKeys(array $keys, $type = null)
+    {
+        $dbkeys = array();
+
+        foreach ($keys as $key) {
+            $dbkeys[$key] = $this->getKey($key, $type);
+        }
+
+        return $dbkeys;
+    }
+
     public function delKey($key)
     {
         if ($this->keyspace[$key]) {
