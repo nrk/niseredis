@@ -342,6 +342,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/smove
+     */
+    public function smove($source, $destination, $member)
+    {
+        return $this->engine->smove($source, $destination, $member);
+    }
+
+    /**
      * @link http://redis.io/commands/spop
      */
     public function spop($key)

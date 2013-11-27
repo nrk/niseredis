@@ -475,6 +475,23 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/smove
+     */
+    public function smove($source, $destination, $member)
+    {
+        if (($dbkeysrc = $this->database->getSet($source)) && $dbkeysrc->sismember($member)) {
+            $member = array($member);
+
+            $dbkeysrc->srem($member);
+            $this->database->getSet($destination, true)->sadd($member);
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem($key, array $members)
