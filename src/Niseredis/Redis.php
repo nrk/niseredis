@@ -326,6 +326,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/sismember
+     */
+    public function sismember($key, $member)
+    {
+        return $this->engine->sismember($key, $member);
+    }
+
+    /**
      * @link http://redis.io/commands/scard
      */
     public function smembers($key)

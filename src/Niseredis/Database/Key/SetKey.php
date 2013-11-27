@@ -83,6 +83,14 @@ class SetKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/sismember
+     */
+    public function sismember($member)
+    {
+        return isset($this->members[(string) $member]);
+    }
+
+    /**
      * @link http://redis.io/commands/smembers
      */
     public function smembers()

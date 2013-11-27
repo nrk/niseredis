@@ -425,6 +425,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/sismember
+     */
+    public function sismember($key, $member)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            return (int) $dbkey->sismember($member);
+        }
+
+        return 0;
+    }
+
+    /**
      * @link http://redis.io/commands/scard
      */
     public function smembers($key)
