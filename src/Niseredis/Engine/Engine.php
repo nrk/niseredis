@@ -424,6 +424,43 @@ class Engine
         return 0;
     }
 
+    protected function getMembersOfSetKeys(array $keys)
+    {
+        $database = $this->database;
+        $retrieve = function ($key) use ($database) {
+            return $database->getSet($key, true)->smembers();
+        };
+
+        return array_map($retrieve, $keys);
+    }
+
+    protected function storeSetOperation($method, $destination, array $keys)
+    {
+        if ($members = $this->$method($keys)) {
+            return $this->database->getSet($destination, true)->sadd($members);
+        }
+
+        return 0;
+    }
+
+    /**
+     * @link http://redis.io/commands/sdiff
+     */
+    public function sdiff(array $keys)
+    {
+        $result = call_user_func_array('array_diff', $this->getMembersOfSetKeys($keys));
+
+        return array_values($result);
+    }
+
+    /**
+     * @link http://redis.io/commands/sdiffstore
+     */
+    public function sdiffstore($destination, array $keys)
+    {
+        return $this->storeSetOperation('sdiff', $destination, $keys);
+    }
+
     /**
      * @link http://redis.io/commands/sismember
      */

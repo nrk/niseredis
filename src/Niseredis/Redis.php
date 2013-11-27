@@ -326,6 +326,25 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/sdiff
+     */
+    public function sdiff(/* $key [, $key, ... ] */)
+    {
+        return $this->engine->sdiff(func_get_args());
+    }
+
+    /**
+     * @link http://redis.io/commands/sdiff
+     */
+    public function sdiffstore(/* $destination, $key [, $key, ... ] */)
+    {
+        $arguments = func_get_args();
+        $count = $this->engine->sdiffstore(array_shift($arguments), $arguments);
+
+        return $count;
+    }
+
+    /**
      * @link http://redis.io/commands/sismember
      */
     public function sismember($key, $member)
