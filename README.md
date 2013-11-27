@@ -62,6 +62,7 @@ Sets:
 
   - [`SADD`](http://redis.io/commands/sadd)
   - [`SCARD`](http://redis.io/commands/scard)
+  - [`SMEMBERS`](http://redis.io/commands/smembers)
   - [`SREM`](http://redis.io/commands/srem)
 
 Sorted sets:

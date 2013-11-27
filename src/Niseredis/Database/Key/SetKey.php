@@ -83,6 +83,14 @@ class SetKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/smembers
+     */
+    public function smembers()
+    {
+        return array_keys($this->members);
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem(array $members)

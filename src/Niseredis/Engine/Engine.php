@@ -425,6 +425,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/scard
+     */
+    public function smembers($key)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            return $dbkey->smembers();
+        }
+
+        return array();
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem($key, array $members)

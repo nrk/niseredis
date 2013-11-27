@@ -326,6 +326,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/scard
+     */
+    public function smembers($key)
+    {
+        return $this->engine->smembers($key);
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem(/* $key, $member [, $member, ... ] */)
