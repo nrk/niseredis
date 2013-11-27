@@ -342,6 +342,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/srandmember
+     */
+    public function srandmember($key, $count = 1)
+    {
+        return $this->engine->srandmember($key, $count);
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem(/* $key, $member [, $member, ... ] */)

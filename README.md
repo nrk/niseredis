@@ -64,6 +64,7 @@ Sets:
   - [`SCARD`](http://redis.io/commands/scard)
   - [`SISMEMBER`](http://redis.io/commands/sismember)
   - [`SMEMBERS`](http://redis.io/commands/smembers)
+  - [`SRANDMEMBER`](http://redis.io/commands/srandmember)
   - [`SREM`](http://redis.io/commands/srem)
 
 Sorted sets:

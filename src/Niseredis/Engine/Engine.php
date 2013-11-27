@@ -449,6 +449,20 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/srandmember
+     */
+    public function srandmember($key, $count = 1)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            $members = $dbkey->srandmember($count);
+
+            return count($members) === 1 ? $members[0] : $members;
+        }
+
+        return array();
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem($key, array $members)

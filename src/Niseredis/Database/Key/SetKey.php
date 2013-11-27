@@ -99,6 +99,29 @@ class SetKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/srandmember
+     */
+    public function srandmember($count = 1)
+    {
+        $unique = $count > 0;
+        $count = abs($count);
+        $members = array();
+
+        while ($count) {
+            $member = array_rand($this->members);
+
+            if ($unique && in_array($member, $members)) {
+                continue;
+            }
+
+            $members[] = $member;
+            $count--;
+        }
+
+        return $members;
+    }
+
+    /**
      * @link http://redis.io/commands/srem
      */
     public function srem(array $members)
