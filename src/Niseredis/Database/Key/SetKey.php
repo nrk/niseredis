@@ -54,4 +54,50 @@ class SetKey implements KeyInterface
     {
         return empty($this->members);
     }
+
+    /**
+     * @link http://redis.io/commands/sadd
+     */
+    public function sadd(array $members)
+    {
+        $added = 0;
+
+        foreach ($members as $member) {
+            $member = (string) $member;
+
+            if (!isset($this->members[$member])) {
+                $this->members[$member] = true;
+                $added++;
+            }
+        }
+
+        return $added;
+    }
+
+    /**
+     * @link http://redis.io/commands/scard
+     */
+    public function scard()
+    {
+        return count($this->members);
+    }
+
+    /**
+     * @link http://redis.io/commands/srem
+     */
+    public function srem(array $members)
+    {
+        $removed = 0;
+
+        foreach ($members as $member) {
+            $member = (string) $member;
+
+            if (isset($this->members[$member])) {
+                unset($this->members[$member]);
+                $removed++;
+            }
+        }
+
+        return $removed;
+    }
 }

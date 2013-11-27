@@ -60,7 +60,9 @@ Lists:
 
 Sets:
 
-  - None
+  - [`SADD`](http://redis.io/commands/sadd)
+  - [`SCARD`](http://redis.io/commands/scard)
+  - [`SREM`](http://redis.io/commands/srem)
 
 Sorted sets:
 

@@ -304,6 +304,39 @@ class Redis
     }
 
 
+    // Set
+
+    /**
+     * @link http://redis.io/commands/sadd
+     */
+    public function sadd(/* $key, $member [, $member, ... ] */)
+    {
+        $arguments = func_get_args();
+        $added = $this->engine->sadd(array_shift($arguments), $arguments);
+
+        return $added;
+    }
+
+    /**
+     * @link http://redis.io/commands/scard
+     */
+    public function scard($key)
+    {
+        return $this->engine->scard($key);
+    }
+
+    /**
+     * @link http://redis.io/commands/srem
+     */
+    public function srem(/* $key, $member [, $member, ... ] */)
+    {
+        $arguments = func_get_args();
+        $removed = $this->engine->srem(array_shift($arguments), $arguments);
+
+        return $removed;
+    }
+
+
     // Hash
 
     /**

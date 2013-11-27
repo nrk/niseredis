@@ -398,6 +398,44 @@ class Engine
         }
     }
 
+    // Sets
+
+    /**
+     * @link http://redis.io/commands/sadd
+     */
+    public function sadd($key, array $members)
+    {
+        if ($dbkey = $this->database->getSet($key, true)) {
+            return $dbkey->sadd($members);
+        }
+
+        return 0;
+    }
+
+    /**
+     * @link http://redis.io/commands/scard
+     */
+    public function scard($key)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            return $dbkey->scard();
+        }
+
+        return 0;
+    }
+
+    /**
+     * @link http://redis.io/commands/srem
+     */
+    public function srem($key, array $members)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            return $dbkey->srem($members);
+        }
+
+        return 0;
+    }
+
     // Hashes
 
     /**
