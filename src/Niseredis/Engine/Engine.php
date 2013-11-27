@@ -558,6 +558,24 @@ class Engine
         return 0;
     }
 
+    /**
+     * @link http://redis.io/commands/sunion
+     */
+    public function sunion(array $keys)
+    {
+        $result = call_user_func_array('array_merge', $this->getMembersOfSetKeys($keys));
+
+        return array_unique($result);
+    }
+
+    /**
+     * @link http://redis.io/commands/sunionstore
+     */
+    public function sunionstore($destination, array $keys)
+    {
+        return $this->storeSetOperation('sunion', $destination, $keys);
+    }
+
     // Hashes
 
     /**

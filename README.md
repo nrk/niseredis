@@ -72,6 +72,8 @@ Sets:
   - [`SPOP`](http://redis.io/commands/spop)
   - [`SRANDMEMBER`](http://redis.io/commands/srandmember)
   - [`SREM`](http://redis.io/commands/srem)
+  - [`SUNION`](http://redis.io/commands/sunion)
+  - [`SUNIONSTORE`](http://redis.io/commands/sunionstore)
 
 Sorted sets:
 

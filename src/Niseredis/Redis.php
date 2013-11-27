@@ -414,6 +414,25 @@ class Redis
         return $removed;
     }
 
+    /**
+     * @link http://redis.io/commands/sunion
+     */
+    public function sunion(/* $key [, $key, ... ] */)
+    {
+        return $this->engine->sunion(func_get_args());
+    }
+
+    /**
+     * @link http://redis.io/commands/sunion
+     */
+    public function sunionstore(/* $destination, $key [, $key, ... ] */)
+    {
+        $arguments = func_get_args();
+        $count = $this->engine->sunionstore(array_shift($arguments), $arguments);
+
+        return $count;
+    }
+
 
     // Hash
 
