@@ -64,6 +64,8 @@ Sets:
   - [`SCARD`](http://redis.io/commands/scard)
   - [`SDIFF`](http://redis.io/commands/sdiff)
   - [`SDIFFSTORE`](http://redis.io/commands/sdiffstore)
+  - [`SINTER`](http://redis.io/commands/sinter)
+  - [`SINTERSTORE`](http://redis.io/commands/sinterstore)
   - [`SISMEMBER`](http://redis.io/commands/sismember)
   - [`SMEMBERS`](http://redis.io/commands/smembers)
   - [`SMOVE`](http://redis.io/commands/smove)

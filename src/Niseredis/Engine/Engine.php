@@ -462,6 +462,24 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/sinter
+     */
+    public function sinter(array $keys)
+    {
+        $result = call_user_func_array('array_intersect', $this->getMembersOfSetKeys($keys));
+
+        return array_values($result);
+    }
+
+    /**
+     * @link http://redis.io/commands/sinterstore
+     */
+    public function sinterstore($destination, array $keys)
+    {
+        return $this->storeSetOperation('sinter', $destination, $keys);
+    }
+
+    /**
      * @link http://redis.io/commands/sismember
      */
     public function sismember($key, $member)

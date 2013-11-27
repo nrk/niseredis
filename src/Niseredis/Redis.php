@@ -345,6 +345,25 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/sinter
+     */
+    public function sinter(/* $key [, $key, ... ] */)
+    {
+        return $this->engine->sinter(func_get_args());
+    }
+
+    /**
+     * @link http://redis.io/commands/sinterstore
+     */
+    public function sinterstore(/* $destination, $key [, $key, ... ] */)
+    {
+        $arguments = func_get_args();
+        $count = $this->engine->sinterstore(array_shift($arguments), $arguments);
+
+        return $count;
+    }
+
+    /**
      * @link http://redis.io/commands/sismember
      */
     public function sismember($key, $member)
