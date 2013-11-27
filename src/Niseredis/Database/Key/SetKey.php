@@ -99,6 +99,17 @@ class SetKey implements KeyInterface
     }
 
     /**
+     * @link http://redis.io/commands/spop
+     */
+    public function spop()
+    {
+        $member = array_rand($this->members);
+        unset($this->members[$member]);
+
+        return $member;
+    }
+
+    /**
      * @link http://redis.io/commands/srandmember
      */
     public function srandmember($count = 1)

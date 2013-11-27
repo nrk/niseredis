@@ -342,6 +342,14 @@ class Redis
     }
 
     /**
+     * @link http://redis.io/commands/spop
+     */
+    public function spop($key)
+    {
+        return $this->engine->spop($key);
+    }
+
+    /**
      * @link http://redis.io/commands/srandmember
      */
     public function srandmember($key, $count = 1)

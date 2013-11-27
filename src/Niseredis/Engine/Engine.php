@@ -449,6 +449,18 @@ class Engine
     }
 
     /**
+     * @link http://redis.io/commands/spop
+     */
+    public function spop($key)
+    {
+        if ($dbkey = $this->database->getSet($key)) {
+            return $dbkey->spop();
+        }
+
+        return null;
+    }
+
+    /**
      * @link http://redis.io/commands/srandmember
      */
     public function srandmember($key, $count = 1)
