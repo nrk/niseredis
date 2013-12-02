@@ -29,6 +29,11 @@ class Database implements Countable
         $this->keyspace = new Keyspace();
     }
 
+    public function __clone()
+    {
+        $this->keyspace = clone $this->keyspace;
+    }
+
     protected function assertType(KeyInterface $key, $type)
     {
         if ($key->getType() !== $type) {

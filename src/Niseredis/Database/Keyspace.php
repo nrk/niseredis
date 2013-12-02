@@ -31,6 +31,13 @@ class Keyspace implements ArrayAccess, Countable, IteratorAggregate
         $this->keyspace[$key] = $object;
     }
 
+    public function __clone()
+    {
+        // Yup, this may look dirty but it works and is way faster than any
+        // other solution such as iterating the keyspace to clone key objects.
+        $this->keyspace = unserialize(serialize($this->keyspace));
+    }
+
     public function detach($key)
     {
         $object = null;
